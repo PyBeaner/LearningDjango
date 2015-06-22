@@ -1,0 +1,11 @@
+1. create the super user
+    python manage.py createsuperuser
+    >>>Username:
+    >>>Email:
+    >>>Password:
+    >>>Password(again):
+
+2. open you site's admin
+    localhost:8000/admin
+
+    
