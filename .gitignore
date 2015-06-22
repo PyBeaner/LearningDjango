@@ -1,4 +1,9 @@
+# Pycharm
 .idea
+
+# DB files
+*.sqlite3
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
