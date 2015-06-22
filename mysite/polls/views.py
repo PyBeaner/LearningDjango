@@ -8,13 +8,24 @@ from .models import Question
 
 def index(request):
     latest_questions = Question.objects.order_by("-pub_date")[:5]
-    template = loader.get_template("polls/index.html")
-    context = RequestContext(request, {
+
+    # shortcut:render
+    context = {
         "latest_questions": latest_questions
-    })
-    return HttpResponse(template.render(context))
+    }
+    return render(request, "polls/index.html", context)
+
+    # # template,context and rendering
+    # template = loader.get_template("polls/index.html")
+    # context = RequestContext(request, {
+    #     "latest_questions": latest_questions
+    # })
+    # return HttpResponse(template.render(context))
+
+    # # output by hard-coding
     # output = ", ".join([q.question_text for q in latest_questions])
     # return HttpResponse(output)
+
     # return HttpResponse("Hello ,world.You're at the polls index.")
 
 
