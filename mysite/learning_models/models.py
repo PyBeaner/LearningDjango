@@ -90,8 +90,11 @@ class CommonModel(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ["name"]
 
 
 class Student(CommonModel):
     home_group = models.CharField(max_length=10)
-    
+
+    class Meta(CommonModel.Meta):
+        db_table = "student_info"
