@@ -40,7 +40,7 @@ class Manufacturer(models.Model):
     pass
 
 
-class Cars(models.Model):
+class Car(models.Model):
     manufacturer = models.ForeignKey(Manufacturer)
 
 
@@ -76,3 +76,22 @@ class Blog(models.Model):
         # do_something()
         super(Blog, self).save(*args, **kwargs)
         # do_something_else()
+
+        # you can use pre_delete and/or post_delete signals.
+        # Unfortunately, there isn¡¯t a workaround when creating or updating objects in bulk, since none of save(), pre_save, and post_save are called.
+
+
+"""Abstract Model"""
+
+
+class CommonModel(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+
+    class Meta:
+        abstract = True
+
+
+class Student(CommonModel):
+    home_group = models.CharField(max_length=10)
+    
