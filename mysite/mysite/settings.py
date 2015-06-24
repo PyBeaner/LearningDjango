@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 
     # project's apps
     "polls",
+    "learning_models",
 )
 
 MIDDLEWARE_CLASSES = (
