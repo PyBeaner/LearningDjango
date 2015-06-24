@@ -8,14 +8,14 @@ from django.views import generic
 from .models import Question, Choice
 
 
-# def index(request):
-#     latest_questions = Question.objects.order_by("-pub_date")[:5]
+def index(request):
+    latest_questions = Question.objects.order_by("-pub_date")[:5]
 #
-#     # shortcut:render
-#     context = {
-#         "latest_questions": latest_questions
-#     }
-#     return render(request, "polls/index.html", context)
+    # shortcut:render
+    context = {
+        "latest_questions": latest_questions
+    }
+    return render(request, "polls/index.html", context)
 
     # # template,context and rendering
     # template = loader.get_template("polls/index.html")
@@ -49,6 +49,10 @@ def detail(request, question_id):
 
     return render(request, "polls/detail.html", {"question": question})
     # return HttpResponse("You're looking at the question %s." % question_id)
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "polls/detail.html"
 
 
 def results(request, question_id):
