@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 # Create your views here.
 from django.template import loader, RequestContext
 from django.views import generic
+from django.utils import timezone
 from .models import Question, Choice
 
 
@@ -37,8 +38,10 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Returns the last five published questions."""
-        return Question.objects.order_by("-pub_date")[:5]
-
+        # return Question.objects.order_by("-pub_date")[:5]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now(),
+        ).order_by("-pub_date")[:5]
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
