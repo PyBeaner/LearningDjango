@@ -15,6 +15,13 @@ class Person(models.Model):
     # p.shirt_size #M
     # p.get_shirt_size_display() #Medium
 
+    def _get_full_name(self):
+        return "%s %s" % (self.first_name, self.last_name)
+
+    full_name = property(_get_full_name)
+
+    def get_absolute_url(self):
+        pass
 
 class Group(models.Model):
     name = models.CharField(max_length=13)
