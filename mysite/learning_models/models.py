@@ -98,3 +98,30 @@ class Student(CommonModel):
 
     class Meta(CommonModel.Meta):
         db_table = "student_info"
+
+
+"""
+Automatically OneToOneField creation
+"""
+
+
+class Place(models.Model):
+    name = models.CharField(max_length=10)
+    address = models.CharField(max_length=20)
+
+
+class Restaurant(Place):
+    serves_hot_dogs = models.BooleanField(default=False)
+    serves_pizza = models.BooleanField(default=False)
+
+
+"""
+# all fields in <Place> will be available in Restaurant
+>>>Place.objects.filter(name="Someone's Cafe")
+>>>Restaurant.objects.filter(name="Someone's Cafe")
+
+# if the place is a Restaurant object,this can access the child class(Restaurant);
+# else a Restaurant.DoesNotExist would be raised
+>>>p = Place.objects.get(id=1)
+>>>r = p.restaurant
+"""
