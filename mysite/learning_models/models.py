@@ -14,3 +14,19 @@ class Person(models.Model):
     shirt_size = models.CharField(choices=SHIRT_SIZES, max_length=1, default="S")
     # p.shirt_size #M
     # p.get_shirt_size_display() #Medium
+
+
+class Manufacturer(models.Model):
+    pass
+
+
+class Cars(models.Model):
+    manufacturer = models.ForeignKey(Manufacturer)
+
+
+class Topping(models.Model):
+    pass
+
+
+class Pizza(models.Model):
+    toppings = models.ManyToManyField(Topping)
