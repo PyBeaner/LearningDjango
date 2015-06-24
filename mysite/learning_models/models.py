@@ -23,6 +23,7 @@ class Person(models.Model):
     def get_absolute_url(self):
         pass
 
+
 class Group(models.Model):
     name = models.CharField(max_length=13)
     members = models.ManyToManyField(Person, through="Membership")
@@ -58,3 +59,20 @@ class Topping(models.Model):
 class Pizza(models.Model):
     # It doesn¡¯t matter which model has the ManyToManyField, but you should only put it in one of the models ¨C not both.
     toppings = models.ManyToManyField(Topping)
+
+
+"""Overriding Examples"""
+
+
+class Blog(models.Model):
+    name = models.CharField(max_length=20)
+    tagline = models.TextField()
+
+    def save(self, *args, **kwargs):
+        # You can prevent saving
+        if self.name == "Jordan's Blog":
+            return  # Jordan shall never have his blog!
+
+        # do_something()
+        super(Blog, self).save(*args, **kwargs)
+        # do_something_else()
