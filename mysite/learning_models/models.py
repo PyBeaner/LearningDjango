@@ -36,6 +36,14 @@ class Cars(models.Model):
     manufacturer = models.ForeignKey(Manufacturer)
 
 
+class Ox(models.Model):
+    horn_length = models.IntegerField()
+
+    class Meta:
+        ordering = ["horn_length"]
+        verbose_name_plural = "oxen"
+
+
 class Topping(models.Model):
     pass
 
