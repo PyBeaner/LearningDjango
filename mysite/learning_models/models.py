@@ -16,6 +16,18 @@ class Person(models.Model):
     # p.get_shirt_size_display() #Medium
 
 
+class Group(models.Model):
+    name = models.CharField(max_length=13)
+    members = models.ManyToManyField(Person, through="Membership")
+
+
+class Membership(models.Model):
+    person = models.ForeignKey(Person)
+    group = models.ForeignKey(Group)
+    date_joined = models.DateTimeField()
+    invite_reason = models.CharField(max_length=64)
+
+
 class Manufacturer(models.Model):
     pass
 
@@ -29,4 +41,5 @@ class Topping(models.Model):
 
 
 class Pizza(models.Model):
+    # It doesn¡¯t matter which model has the ManyToManyField, but you should only put it in one of the models ¨C not both.
     toppings = models.ManyToManyField(Topping)
