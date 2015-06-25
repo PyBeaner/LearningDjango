@@ -73,3 +73,30 @@ entry.authors.add(john,paul,george,ringo)
 # (i)contains(sql like), (i)startswith, (i)endswith
 Entry.objects.get(headline__contains='Lennon')
 """
+
+# Fields on the same model
+# F expressions
+"""
+from django.db.models import F
+Entry.objects.filter(n_comments__gt=F('n_pingbacks'))
+"""
+
+# pk(Primary Key) shortcut
+pass
+
+# Caching and QuerySets
+"""
+# executed twice
+>>> print([e.headline for e in Entry.objects.all()])
+>>> print([e.pub_date for e in Entry.objects.all()])
+# save the queryset to reuse
+>>> queryset = Entry.objects.all()
+>>> print([p.headline for p in queryset]) # Evaluate the query set.
+>>> print([p.pub_date for p in queryset]) # Re-use the cache from the evaluation.
+# not cached
+>>> queryset = Entry.objects.all()
+>>> print(queryset[5]) # queries the db
+>>> print(queryset[5]) # queries the db again
+# if the entire queryset has already been evaluated, the cache will be checked instead:
+# operations like "bool","list","in" would populate the cache
+"""
