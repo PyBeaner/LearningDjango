@@ -33,3 +33,43 @@ entry.authors.add(joe)
 >>> ringo = Author.objects.create(name="Ringo")
 entry.authors.add(john,paul,george,ringo)
 """
+
+# Retrieving objects
+"""
+>>> all_entries = Entry.objects.all()
+# filters
+>>> Entry.objects.filter(pub_date__year=2006)
+# chaining filters
+>>> Entry.objects.filter(
+        pub_date__year=2006
+    ).exclude(
+        pub_date__gte=datetime.now()
+    )
+# QuerySets are lazy
+>>> q = Entry.objects.filter(headline__startswith="What")
+>>> q = q.filter(pub_date__lte=datetime.date.today())
+>>> q = q.exclude(body_text__icontains="food")
+# in fact it hits the database only once
+>>> print(q)
+"""
+
+# Limiting QuerySets
+"""
+# just like the list-slicing(But -1 is not a valid index)
+>>> Entry.objects.all()[5:10:2]
+"""
+
+# Fields Lookups
+"""
+# double-underscore
+# field__lookuptype=value
+# foreign-key lookup:
+>>> Entry.objects.filter(blog_id=3)
+# exact match
+>>> Entry.objects.filter(headline__exact="Hello") # Explicit
+>>> Entry.objects.filter(headline="Hello") # implicit
+# case-insensitive match
+>>> Entry.objects.filter(headline_iexact="hello") # would match "Hello","hello",""HELLO"..
+# (i)contains(sql like), (i)startswith, (i)endswith
+Entry.objects.get(headline__contains='Lennon')
+"""
