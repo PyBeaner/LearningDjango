@@ -128,3 +128,25 @@ b.delete()
 -->Blog.objects.delete()
 instead: use Blog.objects.all().delete()
 """
+
+
+# Copying objects
+"""
+entry.id = None
+entry.save()
+"""
+
+# Updating multiple objects
+"""
+Entry.objects.filter(id__gte=4).update(headline="Something else")
+Entry.objects.filter(id__gt=10).update(blog=b) # update on the ForeignKey
+"""
+
+"""
+Note:
+    It doesn¡¯t run any save() methods on your models, or emit the pre_save or post_save signals (which are a consequence of calling save()), or honor the auto_now field option
+# loop over to save
+
+for item in queryset:
+    item.save()
+"""
