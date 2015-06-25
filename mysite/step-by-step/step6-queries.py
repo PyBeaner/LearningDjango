@@ -100,3 +100,31 @@ pass
 # if the entire queryset has already been evaluated, the cache will be checked instead:
 # operations like "bool","list","in" would populate the cache
 """
+
+# Complex lookups with Q(Q expressions)
+"""
+from django.models.db import Q
+Poll.objects.get(
+    Q(question__startswith='Who'),
+    Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6))
+)
+"""
+
+# Comparing
+"""
+a_entry == b_entry
+# Comparisons will always use the primary key(ID,or whatever)
+a_entry.id == b_entry.id
+"""
+
+# Deleting objects
+"""
+b = Blog.objects.get(pk=1)
+# the entries of this blog would also be deleted!
+# ON DELETE CASCADE(default),you can change it in on_delete argument of the ForeignKey
+b.delete()
+
+# deleting called on the object-manager is not available to prevent deleting all the entries
+-->Blog.objects.delete()
+instead: use Blog.objects.all().delete()
+"""
